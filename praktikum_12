@@ -1,0 +1,15 @@
+df_favian=read.delim("clipboard")
+head(df_favian)
+model_reg=lm(df_favian$Y~df_favian$X)
+summary(model_reg)
+
+#regrensi berganda
+
+df_favian=read.delim("clipboard")
+df_favian$brick_dummy <- ifelse(df_favian$Brick =="Yes", 1,0)
+df_favian$N_dummy1 <- ifelse(df_favian$Neighborhood =="West", 1,0)
+df_favian$N_dummy2 <- ifelse(df_favian$Neighborhood =="North", 1,0)
+model=lm(df_favian$Price~df_favian$SqFt+df_favian$Bedrooms+df_favian$Bathrooms+df_favian$brick_dummy+df_favian$N_dummy1+df_favian$N_dummy2)
+summary(model)
+by(df_favian$Price, df_favian$Neighborhood, mean)
+by(df_favian$Price, df_favian$Brick, mean)
